@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const mongoose = require('mongoose');
+const cors = require("cors")
 
 async function main() {
     await mongoose.connect('mongodb://127.0.0.1:27017/test');
@@ -16,6 +17,7 @@ const blogSchema = new mongoose.Schema({
 const Blog = mongoose.model('Blog', blogSchema);
 
 app.use(express.json())
+app.use(cors())
 
 app.listen(3000, async () => {
     console.log("server is started");
@@ -44,13 +46,13 @@ app.get("/blog/:id", async (req, res) => {
 })
 
 //new blog
-app.post("/blog", async (req, res) => {
+app.post("/newblog", async (req, res) => {
     const { title, descripion, email, img } = req.body
     const blog = new Blog({ title, descripion, email, img })
     await blog.save()
-    res.json({
-        "msg": "Success blog added!"
-    })
+    res.json(
+        { "msg": "Success blog added!" }
+    )
 })
 
 //delete blog
