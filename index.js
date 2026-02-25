@@ -31,7 +31,7 @@ app.get("/", async (req, res) => {
 })
 
 // get all blogs
-app.get("/blog", async (req, res) => {
+app.get("/allblog", async (req, res) => {
     const allBlog = await Blog.find()
     console.log(allBlog);
     res.json({ allBlog })
