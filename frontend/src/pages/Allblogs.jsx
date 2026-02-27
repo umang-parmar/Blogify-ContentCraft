@@ -1,12 +1,18 @@
 import axios from "axios"
 import { useState } from "react"
 import { useEffect } from "react"
-import { useNavigate, useParams } from "react-router"
+import { useCurrentUser } from "../../hooks/userHooks"
 const Allblogs = () => {
 
     const [allblogs, setallblogs] = useState()
 
-    const navigate = useNavigate()
+    //clerk call from hooks folder
+    const {email,fullName} = useCurrentUser()
+   
+    useEffect(() => {
+        console.log(email,fullName)
+    }, [email]) 
+
 
     //refreshing page automatically in UI
     useEffect(() => {
@@ -21,6 +27,7 @@ const Allblogs = () => {
         setallblogs(response.data.allBlog);
     }
 
+    // delete blog function
     const deleteBlog = async (id) => {
         // console.log(id)
         const response = await axios.get(`http://localhost:3000/blog/delete/${id}`)
