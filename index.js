@@ -32,7 +32,7 @@ app.get("/", async (req, res) => {
 // get all blogs
 app.get("/allblog", async (req, res) => {
   const allBlog = await Blog.find();
-  console.log(allBlog);
+  // console.log(allBlog);
   res.json({ allBlog });
 });
 
@@ -54,6 +54,7 @@ app.post("/newblog", async (req, res) => {
 //delete blog
 app.get("/blog/delete/:id", async (req, res) => {
   const { id } = req.params;
+  console.log(id)
   const deleteBlog = await Blog.deleteOne({ _id: id });
   res.json({ msg: "Delete" });
 });

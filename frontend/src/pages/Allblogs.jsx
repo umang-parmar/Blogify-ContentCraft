@@ -1,14 +1,17 @@
 import axios from "axios"
 import { useState } from "react"
 import { useEffect } from "react"
+import { useNavigate, useParams } from "react-router"
 const Allblogs = () => {
 
     const [allblogs, setallblogs] = useState()
 
+    const navigate = useNavigate()
+
     //refreshing page automatically in UI
     useEffect(() => {
         getallblogs()
-    }, [])
+    }, [allblogs])
     
     //Get all blog function
     const getallblogs = async () => {
@@ -17,6 +20,14 @@ const Allblogs = () => {
         // All blogs set in allblogs
         setallblogs(response.data.allBlog);
     }
+
+    const deleteBlog = async (id) => {
+        // console.log(id)
+        const response = await axios.get(`http://localhost:3000/blog/delete/${id}`)
+        // console.log(response)
+    }
+
+
   return (
 
     //maping of array to sequential way
@@ -27,6 +38,7 @@ const Allblogs = () => {
         <p>{a.descripion}</p>
         <p>{a.email}</p>
         <a href={`/edit/${a._id}`}><button>edit</button></a>
+        <button onClick={() => deleteBlog(a._id)}>Delete</button>
         <p>-------------------------------------</p>
     </div>
     )}</div>
